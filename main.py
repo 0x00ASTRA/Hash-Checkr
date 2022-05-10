@@ -1,6 +1,8 @@
 from hashlib import sha256, sha512, md5
 import fancytxt as ft
 
+htline = ft.hashtag_line(20)
+
 print('')
 file_path = input('Enter the file path: ').strip("'")
 print('')
@@ -14,19 +16,23 @@ def get_hash_type():
     for i in range(htl_l):
 
         hash_type = hash_type_list[i]
-        txt = f'Option {i} ' + hash_type
+        txt = f'Option {i}: ' + hash_type
 
         print(txt)
-        print
+        print('')
 
     print(ft.eq_line(len(txt)))
+    print(htline)
 
     opts = f'0 - {htl_l}'
     sel_str = f'Select your option [{opts}]: '
 
+    print(ft.eq_line(len(sel_str) + 1))
+
     ht = int(input(sel_str))
 
     print(ft.eq_line(len(sel_str) + 1))
+    print(htline)
 
     return ht
 
@@ -56,7 +62,6 @@ def calculate_hash():
         
     return hash.hexdigest()
 
-
 def verify():
 
     file_hash = calculate_hash()
@@ -66,18 +71,7 @@ def verify():
     print(file_hash)
     print('')
 
-    hl = []
-    fhl = []
-
-    for i in range(len(inp_hash)):
-
-        hl.append(str(i))
-    
-    for i in range(len(file_hash)):
-
-        fhl.append(str(i))
-
-    if hl == fhl:
+    if file_hash == inp_hash:
         vstr = 'The file hash is a MATCH'
         valid = True
         ln = ft.eq_line(len(vstr))
@@ -87,7 +81,10 @@ def verify():
         print('')
         print(ln)
     else:
+        print('=================(!)=================')
         print(' *!* The file hash is NOT A MATCH *!*')
+        print('=================(!)=================')
+        print('')
 
     return valid
 
